@@ -373,7 +373,7 @@ curl -s -X POST -H 'Content-Type: application/json' -H "Authorization: Bearer $A
 | POST | `/api/v1/employees/{id}/password` | Set Employee Password | employees | 200,404 |
 | GET | `/api/v1/health` | Health check | health | 200 |
 | POST | `/api/v1/vacations` | Submit a Vacation Request | vacations | 201,401,404,409,422 |
-| GET | `/api/v1/vacations/employee/{id}` | List Vacation Requests by Employee | vacations | 200,401,422 |
+| GET | `/api/v1/employees/{id}/vacations` | List Vacation Requests by Employee | vacations | 200,401,422 |
 | GET | `/api/v1/vacations/pending` | List Pending Vacation Requests | vacations | 200,401 |
 | DELETE | `/api/v1/vacations/{id}` | Delete Vacation Request | vacations | 200,403,404,409,422 |
 | POST | `/api/v1/vacations/{id}/approve` | Approve Vacation Request | vacations | 200,404,409,422 |
