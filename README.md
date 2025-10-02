@@ -316,7 +316,7 @@ Logs: `storage/logs/app.log`
 | Reject request | POST | `/api/v1/vacations/{id}/reject` |
 | Employee login | POST | `/api/v1/auth/login` |
 | Employee logout | POST | `/api/v1/auth/logout` |
-| List my requests | GET | `/api/v1/vacations/employee/{id}` |
+| List my requests | GET | `/api/v1/employees/{id}/vacations` |
 | Submit request | POST | `/api/v1/vacations` |
 | Delete own pending request | DELETE | `/api/v1/vacations/{id}` |
 | Refresh token | POST | `/api/v1/auth/refresh` |
