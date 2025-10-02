@@ -4,4 +4,4 @@ keys/
 storage/app/*
 var/
 !.env.example
-cli-session.json
+.cli-session.json
