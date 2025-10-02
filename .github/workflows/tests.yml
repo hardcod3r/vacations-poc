@@ -1,0 +1,51 @@
+# .github/workflows/tests.yml
+name: Tests
+on: [push, pull_request]
+
+jobs:
+  pest:
+    runs-on: ubuntu-latest
+
+    services:
+      db:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: vacation
+          POSTGRES_USER: vacation
+          POSTGRES_PASSWORD: secret
+        ports: [ "5432:5432" ]
+        options: >-
+          --health-cmd="pg_isready -U vacation -d vacation"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+
+    env:
+      DB_HOST: 127.0.0.1
+      DB_PORT: 5432
+      DB_DATABASE: vacation
+      DB_USERNAME: vacation
+      DB_PASSWORD: secret
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.3"
+          tools: composer
+      - run: composer install --no-interaction --prefer-dist
+
+      - name: Wait for DB
+        run: |
+          for i in {1..30}; do
+            (echo > /dev/tcp/127.0.0.1/5432) >/dev/null 2>&1 && break
+            sleep 1
+          done
+
+      - name: Migrate & seed
+        run: |
+          vendor/bin/phinx migrate -e development
+          vendor/bin/phinx seed:run -e development
+
+      - name: Run tests
+        run: vendor/bin/pest --ci

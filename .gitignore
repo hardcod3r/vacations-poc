@@ -1,0 +1,7 @@
+vendor/
+keys/
+.env
+storage/app/*
+var/
+!.env.example
+cli-session.json

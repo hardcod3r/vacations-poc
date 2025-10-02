@@ -1,0 +1,63 @@
+{
+  "name": "vacation/api",
+  "type": "project",
+  "author" : "Konstantinos Kakoliris <clickwebgr@gmail.com>",
+  "require": {
+    "nyholm/psr7": "^1.8",
+    "relay/relay": "^3.0",
+    "nikic/fast-route": "^1.3",
+    "http-interop/response-sender": "^1.0",
+    "vlucas/phpdotenv": "^5.6",
+    "respect/validation": "^2.4",
+    "lcobucci/jwt": "^5.5",
+    "nyholm/psr7-server": "^1.1",
+    "ramsey/uuid": "^4.9",
+    "php-di/php-di": "^7.1",
+    "monolog/monolog": "^3.9",
+    "doctrine/orm": "^3",
+    "doctrine/dbal": "^4",
+    "doctrine/persistence": "^3",
+    "symfony/cache": "^7",
+    "firebase/php-jwt": "^6",
+    "zircote/swagger-php": "^5.4",
+    "guzzlehttp/guzzle": "^7",
+    "symfony/console": "^7.3",
+    "php-school/cli-menu": "^4.4",
+    "predis/predis": "^2.2"
+  },
+  "require-dev": {
+    "robmorgan/phinx": "^0.16.10",
+    "squizlabs/php_codesniffer": "^4",
+    "fakerphp/faker": "^1.24",
+    "laravel/pint": "^1.25",
+    "pestphp/pest": "^3",
+    "phpunit/phpunit": "^11",
+    "mockery/mockery": "^1.6",
+    "phpstan/phpstan": "^2.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Domain\\": "src/Domain/",
+      "Application\\": "src/Application/",
+      "Infrastructure\\": "src/Infrastructure/",
+      "Interface\\": "src/Interface/",
+      "Docs\\": "src/Docs/",
+      "Tests\\": "tests/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true,
+      "pestphp/pest-plugin": true
+    }
+  },
+  "scripts": {
+    "format": "vendor/bin/pint",
+    "test": "pest"
+  }
+}

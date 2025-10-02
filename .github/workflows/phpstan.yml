@@ -1,0 +1,51 @@
+name: PHPStan
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+
+jobs:
+  phpstan:
+    runs-on: ubuntu-latest
+
+    services:
+      db:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: vacation
+          POSTGRES_USER: vacation
+          POSTGRES_PASSWORD: secret
+        ports: [ "5432:5432" ]
+        options: >-
+          --health-cmd="pg_isready -U vacation -d vacation"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+      redis:
+        image: redis:7-alpine
+        ports: [ "6379:6379" ]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.3"
+          tools: composer
+
+      - name: Install dependencies
+        run: composer install --no-interaction --prefer-dist
+
+      - name: Prepare environment
+        run: |
+          cp .env.example .env
+          echo "DB_DSN=pgsql:host=127.0.0.1;port=5432;dbname=vacation" >> .env
+          echo "DB_USERNAME=vacation" >> .env
+          echo "DB_PASSWORD=secret" >> .env
+
+      - name: Run PHPStan
+        run: vendor/bin/phpstan analyse --no-progress
